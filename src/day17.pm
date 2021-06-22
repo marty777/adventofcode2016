@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 package day17;
 
-use Digest::MD5 qw(md5 md5_hex md5_base64);
+use Digest::MD5 qw(md5_hex);
 
 use Exporter;
 our @ISA= qw( Exporter );

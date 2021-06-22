@@ -61,21 +61,8 @@ sub day08 {
 		$screen[$i] = [];
 		for $j (0..$width-1) {
 			$screen[$i][$j] = '.';
-			#util::println("$j, $i", $screen[$i][$j]);
 		}
 	}
-	# print(" $width $height\n");
-	# print_screen($width, $height, @screen);
-	# rect(3,2,@screen);
-	# print("-----------\n");
-	# print_screen($width, $height, @screen);
-	# rotate_col(1,1, $height,@screen);
-	# print("-----------\n");
-	# print_screen($width, $height, @screen);
-	# rotate_row(0,4, $width,@screen);
-	# print("-----------\n");
-	# print_screen($width, $height, @screen);
-	
 	
 	foreach $line (@lines) {
 		if (index($line, "rect ") != -1) {

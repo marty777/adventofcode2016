@@ -98,25 +98,6 @@ sub state_key {
 		return $ret;
 }
 
-sub key_to_state {
-	my($key) = @_;
-	my $elevator = ord(substr($key, 0, 1)) - ord('0');
-	my @floor_strs = split('\[', $key);
-	my @state = ();
-	#print Dumper(@floor_strs);
-	my $item_index = 0;
-	for $i (1..4) {
-		my $str = substr($floor_strs[$i],0,length($floor_strs[$i]) - 1);
-		my @items = split(',', $str);
-		for $item (@items) {
-			#print("$i $item $item[0] $item[1]\n");
-			push @state, [ord(substr($item, 0, 1)) - ord('A'), substr($item,1,1) eq 'C' ? 1 : 2, $i];
-		}
-	}
-	push @state, $elevator;
-	return @state;
-}
-
 sub viable {
 	my(@state) = @_;
 	for $i (0..$#state - 2) {
@@ -245,5 +226,4 @@ sub day11 {
 	util::println("Part 1: ", $part1);
 	util::println("Part 2: ", $part2);
 }
-
 1;

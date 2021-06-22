@@ -152,9 +152,11 @@ sub path {
 		
 		# try all possible moves of the empty position
 		# avoid copying and pushing states to the stack
-		# if they've been previously visited, rather then rejecting them
-		# after being added and popped. It won't skip duplication entirely but
-		# it should help. The states are quite big at the moment.
+		# if they've been previously visited, rather
+		# then rejecting them after being added and 
+		# popped. It won't skip duplication entirely but
+		# it should help. The states are quite big at the
+		# moment.
 		#north
 		if($curr_empty_y > 0 && $curr_state[$curr_empty_y-1][$curr_empty_x] != 2) {
 			my $next_goal_x = $curr_goal_x;
@@ -334,32 +336,7 @@ sub day22 {
 	}
 	util::println("Part 1: ", $part1);
 	
-	# partially solve part 2 using djisktra's algorithm to find min # of steps
-	# from empty node to immediately west of goal node. If west is an obstacle,
-	# use immediately south instead. One of those has to be open.
-	
-	# my $empty_dest_x = $max_x - 1;
-	# my $empty_dest_y = 0;
-	# if($state[$empty_dest_y][$empty_dest_x] == 2) {
-		# $empty_dest_x = $max_x;
-		# $empty_dest_y = 1;
-	# }
-	# my $path_len = path($max_x + 1, $max_y + 1, $empty_x, $empty_y, $empty_dest_x, $empty_dest_y, @state);
-	
-	# given the starting point for an empty cell, run forward with undirected BFS until solution found.
-	# i suspect this portion can be solved simply, but i can't guarantee there aren't any obstacles between the goal and (0,0) which
-	# would complicate things.
-	
-	# my @state2 = @{ dclone(\@state) };
-	# $state2[$max_y + 3] = $empty_dest_x; # empty cell x pos
-	# $state2[$max_y + 4] = $empty_dest_y; # empty cell y pos
-	# $state2[$empty_y][$empty_x] = 1;
-	# $state2[$empty_dest_y][$empty_dest_x] = 0;
-	# my $path_len2 = solve($max_x + 1, $max_y + 1, @state2);
-	
-	# my $part2 = $path_len + $path_len2;
 	my $part2 = path($max_x + 1, $max_y + 1, @state);
 	util::println("Part 2: ", $part2);
 }
-
 1;

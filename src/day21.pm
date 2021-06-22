@@ -89,7 +89,6 @@ sub unscramble {
 				$z1 = ($z + ($z + 1 + ($z >= 4 ? 1 : 0))) % (scalar @result);
 				if($z1 == $x) {
 					$x1 = ($x - $z) % (scalar @result);
-					#last;
 				}
 			}
 			if($x1 == -1) {
@@ -242,5 +241,4 @@ sub day21 {
 	util::println("Part 1: ", $part1);	
 	util::println("Part 2: ", $part2);
 }
-
 1;

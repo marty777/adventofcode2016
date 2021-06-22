@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 package day14;
 
-use Digest::MD5 qw(md5 md5_hex md5_base64);
+use Digest::MD5 qw(md5_hex);
 
 use Exporter;
 our @ISA= qw( Exporter );
@@ -88,5 +88,4 @@ sub day14 {
 	}
 	util::println("Part 2: ", $part2);
 }
-
 1;

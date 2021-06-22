@@ -46,7 +46,6 @@ sub explore {
 		else {
 			if($curr_steps < $seen{$curr_key}) {
 				$seen{$curr_key} = $curr_steps;
-				
 			}
 		}
 		if($curr_key eq $dest_key) {
@@ -111,5 +110,4 @@ sub day13 {
 	util::println("Part 1: ", $part1);
 	util::println("Part 2: ", $part2);
 }
-
 1;

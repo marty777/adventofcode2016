@@ -8,7 +8,6 @@ our @EXPORT = qw( day10 );
 sub print_bots {
 	my (%bots) = @_;
 	foreach $key (keys %bots) {
-		#print("Printing $key\n");
 		util::println("Bot $key\tLO: ", $bots{$key}{'lo'}, "\tHI: ", $bots{$key}{'hi'});
 	}
 }
