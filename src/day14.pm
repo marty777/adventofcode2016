@@ -8,11 +8,20 @@ our @ISA= qw( Exporter );
 our @EXPORT = qw( day14);
 
 sub hash {
-	my($index, $salt, $part2) = @_;
-	if($part2) {
-		return stretched_hash($index, $salt);
+	my($index, $salt, $cache_ref, $part2) = @_;
+	if(exists($cache_ref->{$index})) {
+		return $cache_ref->{$index};
 	}
-	return(md5_hex($salt."$index"));
+	
+	my $hash = '';
+	if($part2) {
+		$hash = stretched_hash($index, $salt);
+	}
+	else {
+		$hash = md5_hex($salt."$index");
+	}
+	$cache_ref->{$index} = $hash;
+	return $hash;
 }
 
 sub stretched_hash {
@@ -25,8 +34,8 @@ sub stretched_hash {
 }
 
 sub hash_check {
-	my ($index, $salt, $part2) = @_;
-	my $start = hash($index, $salt, $part2);
+	my ($index, $salt, $cache_ref, $part2) = @_;
+	my $start = hash($index, $salt, $cache_ref, $part2);
 	my $match = "";
 	for my $i (0..length($start) - 3) {
 		my $a = substr($start, $i, 1);
@@ -42,7 +51,7 @@ sub hash_check {
 	}
 	my $match_str = "$match$match$match$match$match";
 	for $i (1..1001) {
-		my $hash = hash($index + $i, $salt, $part2);
+		my $hash = hash($index + $i, $salt, $cache_ref, $part2);
 		if(index($hash, $match_str) > -1) {
 			return 1;
 		}
@@ -61,10 +70,12 @@ sub day14 {
 	
 	my $found = 0;
 	my $i = 0;
-	util::println("This may take a while...");
+	my %hash_cache = ();
+	
 	while(1) {
-		if(hash_check($i, $salt, 0)) {
+		if(hash_check($i, $salt, \%hash_cache, 0)) {
 			$found++;
+			$test = md5_hex($salt."$i");
 			if($found == 64) {
 				$part1 = $i;
 				last;
@@ -74,10 +85,14 @@ sub day14 {
 	}
 	util::println("Part 1: ", $part1);
 	
+	# clear the cache
+	undef %hash_cache;
+	%hash_cache = ();
+	
 	$found = 0;
 	$i = 0;
 	while(1) {
-		if(hash_check($i, $salt, 1)) {
+		if(hash_check($i, $salt, \%hash_cache, 1)) {
 			$found++;
 			if($found == 64) {
 				$part2 = $i;
